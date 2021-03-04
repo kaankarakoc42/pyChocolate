@@ -10,6 +10,6 @@ awsome debugger for python
 https://pypi.org/project/pyChocolate/
 
 # install
- ```` pip install pyChocolate ```
+ ``` pip install pyChocolate ```
 
 

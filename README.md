@@ -7,6 +7,9 @@ awsome debugger for python
 
 
 # PyPi
- ````pip install pyChocolate```
+https://pypi.org/project/pyChocolate/
+
+# install
+ ```` pip install pyChocolate ```
 
 

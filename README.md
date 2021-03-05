@@ -1,13 +1,12 @@
 # pyChocolate
 awsome debugger for python
 
-
 # Advanced Logs
 ![choco](https://user-images.githubusercontent.com/56826739/109969505-09f08c00-7d05-11eb-811f-9804de9083d6.gif)
 
 # Data Types support
 ![update](https://user-images.githubusercontent.com/56826739/110157189-f7f01580-7df8-11eb-9e13-01c9143bdb6d.PNG)
-![update2](https://user-images.githubusercontent.com/56826739/110158703-c24c2c00-7dfa-11eb-87bc-e83bd653f5a8.PNG)
+![update-2](https://user-images.githubusercontent.com/56826739/110158867-f9bad880-7dfa-11eb-8739-980dc52ed0f4.PNG)
 
 
 

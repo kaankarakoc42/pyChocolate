@@ -7,7 +7,8 @@ awsome debugger for python
 
 # Data Types support
 ![update](https://user-images.githubusercontent.com/56826739/110157189-f7f01580-7df8-11eb-9e13-01c9143bdb6d.PNG)
-![update-2](https://user-images.githubusercontent.com/56826739/110158433-6ed9de00-7dfa-11eb-9691-d92142937aeb.PNG)
+![update2](https://user-images.githubusercontent.com/56826739/110158703-c24c2c00-7dfa-11eb-87bc-e83bd653f5a8.PNG)
+
 
 
 # Implements Logs in to code

@@ -121,7 +121,8 @@ def pretifyOutput(output):
          return f"{white}rv={green}Dict\n"+colorfulDicts(output,4)+"\n"
     elif type(output)==list:
          return white+"["+colorfulArgs(output)+white+"]"
-
+    else:
+         return output
 #-----------exporting---------------
 
 Chocolate=pyChocolate()

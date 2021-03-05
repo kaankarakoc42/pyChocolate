@@ -1,6 +1,7 @@
 from inspect import stack, getframeinfo,getsource
 from colorama import Fore,init
 from datetime import datetime
+from json import dumps
 
 # Before reading code u should now
 # -> getframeinfo(stack()[1][0]) function getting data about used code line and
@@ -22,10 +23,10 @@ class pyChocolate:
           return f"{white} code: {color}{frame.code_context[0].strip()}{reset}" if ifEqual(kwargs,("code",True)) else ""
 
       def Info(self,frame,output,kwargs):
-          return f"{white}[Line-{frame.lineno}] ->({green+firstValue(frame.code_context[0].strip())+white}) { green}{output} {self.Code(frame,green,kwargs)} {self.File(frame,kwargs)}"
+          return f"{white}[Line-{frame.lineno}] ->({green+firstValue(frame.code_context[0].strip())+white}) { green}{pretifyOutput(output)} {self.Code(frame,green,kwargs)} {self.File(frame,kwargs)}"
 
       def Warn(self,frame,output,kwargs):
-          return f"{white}[Line-{frame.lineno}] { red}{output} {self.Code(frame,red,kwargs)} {self.File(frame,kwargs)}"
+          return f"{white}[Line-{frame.lineno}] { red}{pretifyOutput(output)} {self.Code(frame,red,kwargs)} {self.File(frame,kwargs)}"
 
       def LOG(self,frame,output:"debuging content",kwargs)->"return given output": 
           print(self.Warn(frame,output,kwargs) if ifEqual(kwargs,("mode","warn"))  else self.Info(frame,output,kwargs),reset)
@@ -38,12 +39,12 @@ class pyChocolate:
           try:
             rv=tryFunc[0](*arg1)
             args=colorfulArgs(arg1)
-            print(string.format(name1,args,rv))
+            print(string.format(name1,args,pretifyOutput(rv)))
           except Exception as func1err:
             try:
               rv=runFunc[0](*arg2)
               args=colorfulArgs(arg2)
-              print(string.format(name2,args,rv))
+              print(string.format(name2,args,pretifyOutput(rv)))
               print(white+f"[Catched]->({green+name1+white})({colorfulArgs(arg1)+white}) "+str(func1err)+reset)
               print(getsource(tryFunc[0]))
             except Exception as func2err:
@@ -81,13 +82,45 @@ def getLog(code):
 
 def firstValue(code):
     code=getLog(code)
+    end=""
     if len(code)>1:
         return code[0]+white+")("+green+"".join(code[1])
-    return " ".join(code).split(",")[0]
+    rv=" ".join(code).split(",")[0]
+    if rv[0]=="[" or rv[0]=="{" or rv[0]=="(" or rv[0]=='"':
+       p={"[":"]","{":"}","(":")",'"':'"'}
+       end="..."+p[rv[0]]
+       if rv[0]=='"' and rv.endswith('"'):
+          end=""
+    return rv+end
 
 def colorfulArgs(arg):
     return ','.join([ green+str(i)+reset if type(i)!=str else green+'"'+str(i)+'"'+reset for i in arg])
 
+def colorfulDicts(output,indent,innerIndent=False):
+    innerIndent=indent if innerIndent==True else 0
+    def colorize():
+        rv=white+"{\n"
+        for i in list(output.items()):
+            rv+=f'{indent*" "}  {green}"{i[0]}"{white}:'
+            if isinstance(i[1], dict):
+                 rv+=colorfulDicts(i[1],indent+2,True)+(indent+2)*" "+"\n"
+            elif isinstance(i[1], str):
+                 rv+=f'{green}"{i[1]}"{reset},\n'
+            elif isinstance(i[1],list):
+                 rv+=f"{white}[{colorfulArgs(i[1])}{white}]\n"
+            else:
+                 rv+=f'{i[1]},\n'
+        return rv
+    comma="," if innerIndent else ""
+    return f"{green}"+colorize()+white+(innerIndent*" ")+"}"+comma
+
+def pretifyOutput(output):
+    if type(output)==str:
+       return f'"{output}"'
+    elif type(output)==dict:
+         return f"{white}rv={green}Dict\n"+colorfulDicts(output,4)+"\n"
+    elif type(output)==list:
+         return white+"["+colorfulArgs(output)+white+"]"
 
 #-----------exporting---------------
 
@@ -104,4 +137,3 @@ def put(text):
     Chocolate.put(text)
 
 #-------------Done------------------
-

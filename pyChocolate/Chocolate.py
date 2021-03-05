@@ -2,7 +2,6 @@ from inspect import stack, getframeinfo,getsource
 from colorama import Fore,init
 from datetime import datetime
 
-
 # Before reading code u should now
 # -> getframeinfo(stack()[1][0]) function getting data about used code line and
 # -> that why we can get debug of a code part from program 
@@ -91,6 +90,10 @@ def firstValue(code):
        end="..."+p[rv[0]]
        if rv[0]=='"' and rv.endswith('"'):
           end=""
+       if rv[0]=='{' and rv.endswith('}'):
+          end=""
+       if rv[0]=='[' and rv.endswith(']'):
+          end=""
     return rv+end
 
 def colorfulArgs(arg):
@@ -123,6 +126,7 @@ def pretifyOutput(output):
          return white+"["+colorfulArgs(output)+white+"]"
     else:
          return output
+
 #-----------exporting---------------
 
 Chocolate=pyChocolate()
@@ -138,3 +142,4 @@ def put(text):
     Chocolate.put(text)
 
 #-------------Done------------------
+

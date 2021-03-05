@@ -2,7 +2,7 @@ from inspect import stack, getframeinfo,getsource
 from colorama import Fore,init
 from datetime import datetime
 
-# Before reading code u should now
+# Before reading code u should know
 # -> getframeinfo(stack()[1][0]) function getting data about used code line and
 # -> that why we can get debug of a code part from program 
 

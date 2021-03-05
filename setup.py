@@ -10,7 +10,7 @@ classifiers = [
  
 setup(
   name='pyChocolate',
-  version='0.0.2',
+  version='0.0.2.1',
   project_urls = {
   'Github': 'https://www.github.com/kaankarakoc42/pyChocolate'
   },
